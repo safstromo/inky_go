@@ -1,12 +1,14 @@
-module example.com/m/v2
+module inky_go
 
 go 1.24.2
 
-require github.com/go-chi/chi/v5 v5.2.1
+require (
+	github.com/a-h/templ v0.3.857
+	github.com/go-chi/chi/v5 v5.2.1
+)
 
 require (
 	github.com/a-h/parse v0.0.0-20250122154542-74294addb73e // indirect
-	github.com/a-h/templ v0.3.857 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cli/browser v1.3.0 // indirect
