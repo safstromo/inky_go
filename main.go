@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"time"
 
 	"github.com/a-h/templ"
@@ -24,20 +25,42 @@ func main() {
 	r.Get("/time", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(getTime()))
 	})
-	r.Get("/yes", func(w http.ResponseWriter, r *http.Request) {
-		cropImage()
-		w.Write([]byte("yes!"))
-	})
-
 	r.Handle("/static/*", http.StripPrefix("/static/", fs))
+
+	go createImageLoop()
 
 	log.Println("listening on port :3000")
 	http.ListenAndServe(":3000", r)
 }
 
+func createImageLoop() {
+	log.Println("Starting image loop in 20sec")
+	time.Sleep(20 * time.Second)
+	for {
+		log.Println("Taking new screenshot")
+		takeScreenshot()
+		cropImage()
+		log.Println("Sleeping for 1min")
+		time.Sleep(1 * time.Minute)
+	}
+}
+
 func getTime() string {
 	time := time.Now()
 	return time.Format("15:04")
+}
+
+func takeScreenshot() {
+	cmd := exec.Command("chromium-browser", "http://localhost:3000",
+		"--headless", "--screenshot=test.png", "--window-size=480,890", "--disable-gpu", "--no-sandbox")
+
+	output, err := cmd.Output()
+	if err != nil {
+		log.Printf("Error running screenshot command: %v", err)
+		log.Printf("Output: %s", output)
+		return
+	}
+	log.Printf("Successfully ran screenshot command: %v", output)
 }
 
 func cropImage() {
