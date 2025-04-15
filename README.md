@@ -7,4 +7,4 @@ templ generate --watch
 Air:
 air
 
-chromium-browser http://localhost:3000 --headless --screenshot=test.png --window-size="480,920" --disable-gpu --no-sandbox
+chromium-browser http://localhost:3000 --headless --screenshot=test.png --window-size="480,890" --disable-gpu --no-sandbox
