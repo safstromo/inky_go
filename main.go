@@ -17,6 +17,14 @@ func main() {
 
 	r.Use(middleware.Logger)
 	r.Get("/", templ.Handler(templates.Page(getTime())).ServeHTTP)
+	r.Get("/time", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(getTime()))
+	})
+	r.Get("/yes", func(w http.ResponseWriter, r *http.Request) {
+		cropImage()
+		w.Write([]byte("yes!"))
+	})
+
 	r.Handle("/static/*", http.StripPrefix("/static/", fs))
 
 	log.Println("listening on port :3000")
@@ -25,5 +33,9 @@ func main() {
 
 func getTime() string {
 	time := time.Now()
-	return time.Format("15:04:05")
+	return time.Format("15:04")
+}
+
+func cropImage() {
+	log.Println("Cropping image")
 }
