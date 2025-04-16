@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"image"
 	"image/png"
-	"inky_go/templates"
 	"log"
 	"math/rand"
 	"net/http"
 	"os"
 	"os/exec"
 	"time"
+
+	"github.com/safstromo/inky_go/templates"
 
 	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
