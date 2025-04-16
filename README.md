@@ -13,7 +13,19 @@ air
 
 ## Running
 
-1. Create a symlink to image directory:
+1. Clone project:
+
+```
+git clone https://github.com/safstromo/inky_go
+```
+
+2. Move to project directory
+
+```
+cd inky_go
+```
+
+3. Create a symlink to image directory:
 
 ```
 ln -s /mnt/directory_with_images static/images
