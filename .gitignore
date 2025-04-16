@@ -3,4 +3,5 @@ node_modules/
 static/images
 *.png
 *.jpg
+inky_go
 
