@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/png"
 	"inky_go/templates"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/exec"
@@ -18,14 +20,31 @@ import (
 
 func main() {
 	r := chi.NewRouter()
-	fs := http.FileServer(http.Dir("./static"))
+	fileserver := http.FileServer(http.Dir("./static"))
+
+	files, err := os.ReadDir("./static/tavla")
+	if err != nil {
+		log.Fatal("Error reading directory")
+	}
+
+	var images []string
+
+	log.Println("Contents of directory")
+	for _, entry := range files {
+		images = append(images, entry.Name())
+		log.Println(entry.Name())
+	}
 
 	r.Use(middleware.Logger)
 	r.Get("/", templ.Handler(templates.Page(getTime())).ServeHTTP)
 	r.Get("/time", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(getTime()))
 	})
-	r.Handle("/static/*", http.StripPrefix("/static/", fs))
+	r.Get("/image", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html")
+		w.Write([]byte(getImageHtml(images)))
+	})
+	r.Handle("/static/*", http.StripPrefix("/static/", fileserver))
 
 	go createImageLoop()
 
@@ -43,6 +62,15 @@ func createImageLoop() {
 		log.Println("Sleeping for 1min")
 		time.Sleep(1 * time.Minute)
 	}
+}
+
+func getImageHtml(images []string) string {
+	randomIdx := rand.Intn(len(images))
+
+	imageFile := images[randomIdx]
+	imgHTML := fmt.Sprintf(`<img id="image-element" class="absolute inset-0 h-full w-full object-cover" src="/static/tavla/%s"/>`, imageFile)
+	log.Printf("Returning img html: %v", imgHTML)
+	return imgHTML
 }
 
 func getTime() string {
