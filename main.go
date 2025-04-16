@@ -22,7 +22,7 @@ func main() {
 	r := chi.NewRouter()
 	fileserver := http.FileServer(http.Dir("./static"))
 
-	files, err := os.ReadDir("./static/tavla")
+	files, err := os.ReadDir("./static/images")
 	if err != nil {
 		log.Fatal("Error reading directory")
 	}
@@ -68,7 +68,7 @@ func getImageHtml(images []string) string {
 	randomIdx := rand.Intn(len(images))
 
 	imageFile := images[randomIdx]
-	imgHTML := fmt.Sprintf(`<img id="image-element" class="absolute inset-0 h-full w-full object-cover" src="/static/tavla/%s"/>`, imageFile)
+	imgHTML := fmt.Sprintf(`<img id="image-element" class="absolute inset-0 h-full w-full object-cover" src="/static/images/%s"/>`, imageFile)
 	log.Printf("Returning img html: %v", imgHTML)
 	return imgHTML
 }

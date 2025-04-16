@@ -1,2 +1,6 @@
 tmp/
 node_modules/
+static/images
+*.png
+*.jpg
+

@@ -1,4 +1,4 @@
-module inky_go
+module github.com/safstromo/inky_go
 
 go 1.24.2
 
