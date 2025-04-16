@@ -1,3 +1,7 @@
+## Development
+
+### Hotreload commmands
+
 Tailwind:
 npx @tailwindcss/cli -i ./static/css/style.css -o ./static/css/tailwind.css --watch
 
@@ -7,4 +11,13 @@ templ generate --watch
 Air:
 air
 
-chromium-browser http://localhost:3000 --headless --screenshot=test.png --window-size="480,890" --disable-gpu --no-sandbox
+## Running
+
+1. Create a symlink to image directory:
+
+```
+ln -s /mnt/directory_with_images static/images
+
+
+
+```
