@@ -54,17 +54,17 @@ The binary needs thes following folders: static, scripts
 
 In the script folder there are a couple of scripts to update the frame without the webserver.
 
-You can run update_from_folder.sh in a set intervall using systemd by adding the service and timer files to /etc/systemd/system then enable the timer service.
+You can run ```update_from_folder.sh``` in a set intervall using systemd by adding the service and timer files to ```/etc/systemd/system``` then enable the timer service.
 
 ## Development
 
 ### Hotreload commmands
 
 Tailwind:
-npx @tailwindcss/cli -i ./static/css/style.css -o ./static/css/tailwind.css --watch
+```npx @tailwindcss/cli -i ./static/css/style.css -o ./static/css/tailwind.css --watch```
 
 Templ:
-templ generate --watch
+```templ generate --watch```
 
 Air:
-air
+```air```
