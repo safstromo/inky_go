@@ -1,0 +1,9 @@
+[Unit]
+Description=Run update_from_folder every 10 minutes
+
+[Timer]
+Unit=inky_update_timer.service
+OnCalendar=*:0/10
+
+[Install]
+WantedBy=timers.target

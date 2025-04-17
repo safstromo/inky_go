@@ -1,0 +1,7 @@
+[Unit]
+Description=Run inky update
+
+[Service]
+User=eox  
+WorkingDirectory=/home/eox/scripts/
+ExecStart=/home/eox/scripts/update_from_folder.sh

@@ -1,0 +1,13 @@
+[Unit]
+Description=Inky_go update frame image
+After=network.target
+
+[Service]
+User=eox            
+ExecStart=/home/eox/inky_go/inky_go 
+Restart=on-failure
+StandardOutput=append:/var/log/inky_go.log  
+StandardError=append:/var/log/inky_go.log   #
+
+[Install]
+WantedBy=multi-user.target
