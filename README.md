@@ -20,6 +20,14 @@ ln -s /mnt/directory_with_images static/images
 
 4. Build project
 
+Set envs to build for raspberrypi zero
+```
+export GOOS=linux
+export GOARCH=arm
+export GOARM=7
+```
+Build
+
 ```
 go build
 ```

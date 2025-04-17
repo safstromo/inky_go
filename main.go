@@ -30,11 +30,12 @@ func main() {
 
 	var images []string
 
-	log.Println("Contents of directory")
+	log.Println("Collecting image names")
 	for _, entry := range files {
 		images = append(images, entry.Name())
-		log.Println(entry.Name())
 	}
+
+	log.Printf("Found %v images", len(images))
 
 	r.Use(middleware.Logger)
 	r.Get("/", templ.Handler(templates.Page(getTime())).ServeHTTP)
@@ -59,18 +60,22 @@ func createImageLoop() {
 	for {
 		log.Println("Taking new screenshot")
 		takeScreenshot()
+		time.Sleep(5 * time.Second)
 		cropImage()
+		time.Sleep(5 * time.Second)
+		updateFrame()
 		log.Println("Sleeping for 1min")
 		time.Sleep(1 * time.Minute)
 	}
 }
 
 func getImageHtml(images []string) string {
+	log.Println("Getting random image")
 	randomIdx := rand.Intn(len(images))
 
 	imageFile := images[randomIdx]
 	imgHTML := fmt.Sprintf(`<img id="image-element" class="absolute inset-0 h-full w-full object-cover" src="/static/images/%s"/>`, imageFile)
-	log.Printf("Returning img html: %v", imgHTML)
+	log.Println("Returning img html")
 	return imgHTML
 }
 
@@ -89,7 +94,7 @@ func takeScreenshot() {
 		log.Printf("Output: %s", output)
 		return
 	}
-	log.Printf("Successfully ran screenshot command: %v", output)
+	log.Println("Successfully ran screenshot command")
 }
 
 func cropImage() {
@@ -129,4 +134,19 @@ func cropImage() {
 	}
 
 	log.Println("Successfully cropped and saved image as cropped.png")
+}
+
+func updateFrame() {
+	log.Println("Running script to update frame")
+
+	cmd := exec.Command("./update.sh", "../cropped.png")
+	cmd.Dir = "./scripts"
+
+	output, err := cmd.Output()
+	if err != nil {
+		log.Printf("Error running update script: %v", err)
+		log.Printf("Output: %s", output)
+		return
+	}
+	log.Println("Successfully ran update script command")
 }
