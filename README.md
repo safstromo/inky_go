@@ -2,6 +2,8 @@
 
 This an application for the Inky Imperssion 7.3" with a Raspberry Pi Zero.
 
+![Frame](https://github.com/safstromo/inky_go/blob/main/frame.jpg)
+
 Its a webserver that serves an HTMX page with images from a folder and in intervalls takes a screenshot of the page then runs a script to update the frame with the screenshot.
 
 ## Running
